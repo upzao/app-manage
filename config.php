@@ -18,7 +18,7 @@ $dbhost = '127.0.0.1';
 //数据库用户名
 $dbuser='root';
 //$dbuser='admin';
-//SupeSite数据库密码
+//SupeSite数据库密码111
 //$dbpw = 'root';
 $dbpw = '';
 //SupeSite数据库名
