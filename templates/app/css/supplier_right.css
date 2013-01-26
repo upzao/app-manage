@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+/**隆平*/
+	.width1140{width:1130px; margin:0 auto; margin-top:15px;padding:0 5px 10px 5px;}
+
+/**商品列表*/
+	.body{ width:1130px;margin:0 auto; margin-top:15px;}
+	li{list-style:none;}
+	td{line-height:25px;}
+	input{ border: 1px solid #5f9de0;}
+	select{ border: 1px solid #5f9de0;width:140px;height:25px;}
+
+/**新增商品*/
+	.addGoods{ width:1140px; margin:0 auto;}
+	.addGoods_one_left{width:500px; float:left; margin-left:15px;}
+	.addGoods_one_right{ width:540px; height:447px; float:left;margin-top:50px; text-align: center;}
+	.yulan_imgs{line-height: 25px;  text-align: center; width:100%;}
+
+/*选择产品展示方式*/
+    .main{ margin:0 auto; margin-top:10px; width:860px;}
+	.fix{ clear:both;}
+	.select_type{ width:820px; line-height:30px; font-size:16px; color:#5f9de0; font-weight:bold; border:1px solid #5f9de0; text-indent:0.5em; margin-bottom:15px;}
+	.show_type{}
+	.show_type .show_tv{ float:left; width:400px; height:300px;  margin-right:20px;}
+	.show_type .tv_area{ width:400px; height:300px; }
+	.show_type .tv{ text-align:center; line-height:30px;}
+	.show_type .show_image{ float:left; width:400px; height:300px;}
+	.show_type .img_area{ width:400px; height:300px; }
+	.show_type .img{ text-align:center;line-height:30px;}
+
+/*选择产品展示方式-图片上传-六张图片细节展示*/
+	.main2{ margin:0 auto; margin-top:10px; width:630px;}
+	
+/*追加物流   订单发货等*/
+	.boldright{ text-align: right; font-weight: bold;}
+	.indent1{text-indent: 1em;}
+
+/*供应商 商品详情*/
+	.fix{clear:both;}
+	.goodsimages{width: 520px;float:right;padding:auto 0;}
+	
+
+
