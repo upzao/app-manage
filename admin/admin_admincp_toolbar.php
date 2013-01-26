@@ -8,7 +8,7 @@
 <script language="javascript" type="text/javascript"
 	src="include/js/admin.js"></script>
 <script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+	src="templates/app/js/jquery-1.8.3.js">
 		
 </script>
 </head>

@@ -717,7 +717,6 @@ function updatetable($tablename, $setsqlarr, $wheresqlarr) {
 		$setsql .= $comma . $set_key . '=\'' . $set_value . '\'';
 		$comma = ', ';
 	}
-//	echo 'UPDATE ' . tname ( $tablename ) . ' SET ' . $setsql . ' WHERE ' . getwheresql ( $wheresqlarr );
 	$_SGLOBAL ['db']->query ( 'UPDATE ' . tname ( $tablename ) . ' SET ' . $setsql . ' WHERE ' . getwheresql ( $wheresqlarr ) );
 }
 /**
@@ -1047,7 +1046,6 @@ function multiAndResultForAjax($sql, $perpage, $curpage, $onclickMethod, $phpurl
 	global $_SHTML;
 	global $_SGLOBAL;
 	$numSql = $sql;
-//	echo $sql;
 	$numSql = "select count(*) " . substr ( $numSql, strpos ( $numSql, 'from', 1 ), strlen ( $numSql ) - 1 );
 	$querynum = $_SGLOBAL ['db']->query ( $numSql );
 	$num = $_SGLOBAL ['db']->fetch_row ( $querynum );
@@ -1112,10 +1110,76 @@ function multiAndResultForAjax($sql, $perpage, $curpage, $onclickMethod, $phpurl
 		$multipage .= ($curpage < $pages ? '<a href="#" onclick="' . $onclickMethod . '(' . $url . ')">&gt;</a>' : '') . ($to < $pages ? '<a href="#" onclick="' . $onclickMethod . '(' . $url2 . ')" target="_self">&gt;|</a>' : '') . ($curpage == $maxpages ? '<a  href="batch.message.php?action=maxpages&pages=' . $maxpages . '" >&gt;?</a>' : '') . ($pages > $page ? '' : '');
 		$multipage = $multipage ? '<div class="xspace-page"><span class="xspace-totlerecord">' . $num . '</span><span class="xspace-totlepages">' . $curpage . '/' . $realpages . '</span>' . $multipage . '</div>' : '';
 	}
-	$results = array ('mulitpage' => $multipage, 'retult' => $resultarray );
+	$results = array ('mulitpage' => $multipage, 'result' => $resultarray,'num'=>$num );
 	return $results;
 }
-
+/**
+ * 生成分页URL地址集合以及数据返回值的ajax方法
+ * 
+ * @param String $sql：记录总数
+ * @param int $perpage： 每页记录数
+ * @param int $curpage： 当前记页数
+ * @param String $onclickMethod: ajax方法名
+ * @return  返回分页HTML代码以及查询结果的集合，分别对应的是'mulitpage' => $multipage, 'retult' => $result 
+ */
+function multi_javascript($num, $perpage, $curpage, $onclickMethod, $phpurl = 1) {
+	
+	global $_SHTML;
+	global $_SGLOBAL;
+	
+	$curNum=($curpage - 1) * $perpage;
+	if ($curNum > $num)
+		messagebox ( 'error', 'start_listcount_error' );
+	$maxpages = 999999999;
+	$multipage = $a_name = '';
+	if ($num > $perpage) {
+		$page = 10;
+		$offset = 2;
+		$realpages = @ceil ( $num / $perpage );
+		$pages = $maxpages && $maxpages < $realpages ? $maxpages : $realpages;
+		if ($page > $pages) {
+			$from = 1;
+			$to = $pages;
+		} else {
+			$from = $curpage - $offset;
+			$to = $curpage + $page - $offset - 1;
+			if ($from < 1) {
+				$to = $curpage + 1 - $from;
+				$from = 1;
+				if (($to - $from) < $page && ($to - $from) < $pages) {
+					$to = $page;
+				}
+			} elseif ($to > $pages) {
+				$from = $curpage - $pages + $to;
+				$to = $pages;
+				if (($to - $from) < $page && ($to - $from) < $pages) {
+					$from = $pages - $page + 1;
+				}
+			}
+		}
+		
+		if ($phpurl) {
+			$url = 1;
+			$url2 = ($curpage - 1);
+		}
+		
+		$multipage = ($curpage - $offset > 1 && $pages > $page ? '<a href="#" onclick="' . $onclickMethod . '(' . $url . ')">|&lt;</a>' : '') . ($curpage > 1 ? '<a href="#" onclick="' . $onclickMethod . '(' . $url2 . ')">&lt;</a>' : '');
+		for($i = $from; $i <= $to; $i ++) {
+			if ($phpurl) {
+				$url = $i;
+			}
+			$multipage .= $i == $curpage ? '<span class="xspace-current">' . $i . '</span>' : '<a  href="#" onclick="' . $onclickMethod . '(' . $url . ')">' . $i . '</a>';
+		}
+		
+		if ($phpurl) {
+			$url = $curpage + 1;
+			$url2 = $pages;
+		}
+		$multipage .= ($curpage < $pages ? '<a href="#" onclick="' . $onclickMethod . '(' . $url . ')">&gt;</a>' : '') . ($to < $pages ? '<a href="#" onclick="' . $onclickMethod . '(' . $url2 . ')" target="_self">&gt;|</a>' : '') . ($curpage == $maxpages ? '<a  href="batch.message.php?action=maxpages&pages=' . $maxpages . '" >&gt;?</a>' : '') . ($pages > $page ? '' : '');
+		$multipage = $multipage ? '<div class="xspace-page"><span class="xspace-totlerecord">' . $num . '</span><span class="xspace-totlepages">' . $curpage . '/' . $realpages . '</span>' . $multipage . '</div>' : '';
+	}
+	return $multipage;
+}
 //导出文件
 function exportfile($array, $filename) {
 	global $_SGLOBAL, $_SCONFIG;
@@ -2093,5 +2157,39 @@ function trade_payurl($item) {
 	$sign = md5 ( $sign . DISCUZ_SECURITYCODE );
 	return 'http://www.alipay.com/redir.do?id=307&site=allbbs&target=' . rawurlencode ( 'https://www.alipay.com/cooperate/gateway.do?' . $urlstr . 'sign=' . $sign . '&sign_type=MD5' );
 }
-
+/**
+ * 获得客户端IP地址
+ * @return
+ */
+function getAddr(){
+	if ($HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"])
+	{
+		$ip = $HTTP_SERVER_VARS["HTTP_X_FORWARDED_FOR"];
+	}
+	elseif ($HTTP_SERVER_VARS["HTTP_CLIENT_IP"])
+	{
+		$ip = $HTTP_SERVER_VARS["HTTP_CLIENT_IP"];
+	}
+	elseif ($HTTP_SERVER_VARS["REMOTE_ADDR"])
+	{
+		$ip = $HTTP_SERVER_VARS["REMOTE_ADDR"];
+	}
+	elseif (getenv("HTTP_X_FORWARDED_FOR"))
+	{
+		$ip = getenv("HTTP_X_FORWARDED_FOR");
+	}
+	elseif (getenv("HTTP_CLIENT_IP"))
+	{
+		$ip = getenv("HTTP_CLIENT_IP");
+	}
+	elseif (getenv("REMOTE_ADDR"))
+	{
+		$ip = getenv("REMOTE_ADDR");
+	}
+	else
+	{
+		$ip = "Unknown";
+	}
+	return $ip;
+}
 ?>

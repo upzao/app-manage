@@ -26,4 +26,17 @@ class appInfoDao
     function updateAppInfo($app,$wheresql){
         return updateTransaction("applist",$app,$wheresql);
     }
+
+    /**<p>ajax≤È—Ø∑Ω∑®</p>
+     * author:tc
+     * @param $sql
+     * @param $perpage
+     * @param $curpage
+     * @param $onclickMethod
+     * @return array
+     */
+    function ajx($sql, $perpage, $curpage, $onclickMethod) {
+        $sql = 'select * from ' . tname ( 'applist' ) . $sql." order by que desc";
+        return multiAndResultForAjax ( $sql, $perpage, $curpage, $onclickMethod );
+    }
 }

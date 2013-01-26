@@ -119,9 +119,9 @@ class ManagerService {
 	public function getToolBar() {
 		global $_SGLOBAL;
 		if (AuthorityService::SUPE_ADMIN()) {
-			$toolsBar .= '<li><a class="current" href="' . CPURL . '?action=specialAction&actionName=speciallist" target="mainframe" onclick="channelNav(this, \'appmanage\');">应用管理</a></li>';
+			$toolsBar .= '<li><a class="current" href="' . CPURL . '?action=appInfoAction&actionName=applist" target="mainframe" onclick="channelNav(this, \'sidemenu_block\');">应用管理</a></li>';
 		} else {
-			$toolsBar .= '<li><a class="current" href="' . CPURL . '?action=specialAction&actionName=speciallist" target="mainframe" onclick="channelNav(this, \'appmanage\');">应用管理</a></li>';
+			$toolsBar .= '<li><a class="current" href="' . CPURL . '?action=appInfoAction&actionName=applist" target="mainframe" onclick="channelNav(this, \'sidemenu_block\');">应用管理</a></li>';
 		}
 		return $toolsBar;
 	}
@@ -159,14 +159,7 @@ class ManagerService {
 				$sidemenu .= '<li><a id="'.$value ['ename'].'" href="'.S_URL.'/admincp.php?action='.$actionClass.'&actionName='.$actionName.'"'.$class.'>&nbsp;&nbsp;' . $value ['zname'] . '</a></li>';
 			}
 			$sidemenu .= '</ul></div>';
-			$sidemenu .='
-<div id="appmanage" style="display: none;">
-	<h3>应用管理</h3>
-	<ul>
-		<li><a href="'.CPURL.'?action=managerAction&actionName=managerlist">应用列表</a></li>
-	</ul>
-</div>
-';
+			$sidemenu .='';
 			session_start ();
 			$_SESSION ['menu'] = $sessionarr;
 		} else {
@@ -200,14 +193,7 @@ class ManagerService {
 				$i++;
 			}
 			$sidemenu .= '</ul></div>';
-			$sidemenu .='
-<div id="appmanage" style="display: none;">
-	<h3>应用管理</h3>
-	<ul>
-		<li><a href="'.CPURL.'?action=managerAction&actionName=managerlist">应用列表</a></li>
-	</ul>
-</div>
-';
+			$sidemenu .='';
 			session_start ();
 			$_SESSION ['menu'] = $sessionarr;
 		}

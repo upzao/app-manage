@@ -15,6 +15,8 @@ class appInfoAction extends ActionClass
 {
     private $app;
     private $appInfoService;
+    private $curpage = 1;
+    private $perpage = 20;
 
     function __construct(){
         $this->appInfoService = new appInfoService();
@@ -31,6 +33,43 @@ class appInfoAction extends ActionClass
         $result = $this->appInfoService->addAppInfo($this->app);
         echo urldecode(json_encode($result));
     }
+
+    /**
+     *<p>应用列表页面</p>
+     * author:tc
+      */
+    function applist(){
+        include template("appList");
+    }
+    /**
+     * <p>查询列表方法，ajax</p>
+     * ahtour : tc
+     */
+    function listPost(){
+        $whereResult= $this->propertyFilter();
+        echo urldecode(json_encode($this->appInfoService->findList($whereResult, $this->perpage, $this->curpage, "ajaxListCommit")));
+    }
+
+    public function setCurpage($curpage)
+    {
+        $this->curpage = $curpage;
+    }
+
+    public function getCurpage()
+    {
+        return $this->curpage;
+    }
+
+    public function setPerpage($perpage)
+    {
+        $this->perpage = $perpage;
+    }
+
+    public function getPerpage()
+    {
+        return $this->perpage;
+    }
+
 }
 new appInfoAction();
 ?>
