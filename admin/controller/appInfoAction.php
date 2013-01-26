@@ -11,13 +11,14 @@ include_once ($ROOT . 'include/main.inc.php');
 include_once ($ROOT . 'include/common.inc.php');
 include_once ($ROOT . 'class/actionClass.php');
 include_once ($ROOT . 'admin/service/appInfoService.php');
-class appInfoAction
+class appInfoAction extends ActionClass
 {
     private $app;
     private $appInfoService;
 
-    function _construct(){
+    function __construct(){
         $this->appInfoService = new appInfoService();
+        parent::__construct($this);
     }
 
     public function addappInfo(){
@@ -31,3 +32,5 @@ class appInfoAction
         echo urldecode(json_encode($result));
     }
 }
+new appInfoAction();
+?>
