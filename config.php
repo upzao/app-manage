@@ -59,7 +59,7 @@ $dbreport = 0;//是否发送数据库错误报告? 0=否, 1=是
 
 $shopvideodir = "video/";
 $shopimagedir = "image/";
-$adimgdir = "ad/";
+$adimgdir = "app/";
 $shopcoverimgdir = "cover/";
 $isodir = "iso/";
 
