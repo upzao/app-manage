@@ -12,7 +12,7 @@ class appInfoService
     private $appInfoDao;
     private $result;
 
-    function _construct(){
+    function __construct(){
         $this->appInfoDao = new appInfoDao();
         $this->result = array("error"=>true,"msg"=>"","state"=>"","extra"=>array(),"url"=>"");
     }

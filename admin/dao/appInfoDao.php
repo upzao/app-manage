@@ -8,7 +8,7 @@
  */
 class appInfoDao
 {
-    function _construct(){}
+    function __construct(){}
 
     /**Ìí¼Óapp
      * @param $appinfo
