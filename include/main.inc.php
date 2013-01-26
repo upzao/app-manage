@@ -15,6 +15,8 @@ define('S_VER', '5.5.2');
 define('X_VER', '3.0.2');
 define('S_RELEASE', '20070622');
 define('ID_KEY',"ID_PASSWORD");//定义加密密钥
+define('BASE64_KEY', base64_encode('ID_PASSWORD_KEY'));//线路id加密key
+define('BASE64_IV', base64_encode('ID_PASSWORD_IV'));//线路id解密key
 define('D_BUG', '0');
 
 D_BUG?error_reporting(E_ALL):error_reporting(E_ERROR);
@@ -38,12 +40,10 @@ include_once(S_ROOT.'./config.php');
 define('S_URL', $siteurl);
 define('B_URL', $bbsurl);
 define('B_VER', $bbsver);
-define('COVER_DIR',$shopcoverimgdir);//商品封面目录
-define('AD_DIR',$adimgdir);//广告图片目录
-define('ISO_DIR',$isodir);//iso图片目录
-define('SHOW_DIR',$shopimagedir);//展示图片目录
-define('VIDEO_DIR',$shopvideodir);//展示视频目录
-define('LOGO_DIR',$logodir);//展示视频目录
+define('S_TEMPLE',$template_dir);//模版文件跟目录
+define('WEB_TAB_TITLE',$web_page_tab_title);
+define("ANIMATION_DIR",$animation_fileroot_dir);
+define("ALERT_SKIN",$alert_skin);//皮肤
 
 @include_once(S_ROOT.'./data/system/config.cache.php');
 

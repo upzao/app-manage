@@ -62,6 +62,7 @@ $shopimagedir = "image/";
 $adimgdir = "app/";
 $shopcoverimgdir = "cover/";
 $isodir = "iso/";
+$template_dir = "app";//模版文件在templates下的目录名字
 
 //--------------- URL设置 ------------------------------
 
@@ -69,7 +70,7 @@ $isodir = "iso/";
 //可以填写以 http:// 开头的完整URL，也可以填写相对URL。末尾不要加 /
 //如果程序无法自动获取，请务必手工修改为 http://www.yourwebsite.com/supesite 形式
 //$siteurl = 'http://surfingmail.cn/tv';
-$siteurl = 'http://127.0.0.1/app';
+$siteurl = 'http://localhost/app-manage';
 
 //论坛URL地址
 //可以填写以http://开头的完整URL，也可以填写相对URL。末尾不要加 /
