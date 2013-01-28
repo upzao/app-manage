@@ -27,6 +27,18 @@ class appInfoDao
         return updateTransaction("applist",$app,$wheresql);
     }
 
+    function findApp()
+    {
+        global $_SGLOBAL;
+        $sql = "select max(que) m from " . tname("applist");
+        $query = $_SGLOBAL ['db']->query($sql);
+        $array = array();
+        while ($result = $_SGLOBAL ['db']->fetch_array($query)) {
+            $array[] = $result;
+        }
+        return $array;
+    }
+
     /**<p>ajax²éÑ¯·½·¨</p>
      * author:tc
      * @param $sql

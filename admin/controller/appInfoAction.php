@@ -30,8 +30,18 @@ class appInfoAction extends ActionClass
 
     function  addAppInfoPost(){
         $app = $this->app;
-        $result = $this->appInfoService->addAppInfo($this->app);
-        echo urldecode(json_encode($result));
+        $id = $this->appInfoService->addAppInfo($this->app);
+        header("location:".S_URL."/admincp.php?action=appInfoAction&actionName=updateAppInfo&app[id]=".$id);
+    }
+
+    function updateAppInfo(){
+        $app = $this->app;
+        include template("addappinfo");
+    }
+
+    function  updateAppInfoPost(){
+        $this->appInfoService->updateAppInfo($this->app);
+        header("location:".S_URL."/admincp.php?action=appInfoAction&actionName=appList");
     }
 
     /**
@@ -70,6 +80,15 @@ class appInfoAction extends ActionClass
         return $this->perpage;
     }
 
+    public function setApp($app)
+    {
+        $this->app = $app;
+    }
+
+    public function getApp()
+    {
+        return $this->app;
+    }
 }
 new appInfoAction();
 ?>

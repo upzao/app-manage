@@ -20,6 +20,8 @@ class appInfoService
 
     function addAppInfo($app)
     {
+        $maxQue = ($this->appInfoDao->findApp());
+        $app[que] = $maxQue[0]['m'] + 1;
         $id = $this->appInfoDao->addAppInfo($app);
         if ($id > 0 && is_numeric($id)) {
             $this->result['error'] = false;
