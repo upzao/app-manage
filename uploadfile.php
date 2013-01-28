@@ -14,14 +14,21 @@ $id = $_POST ['id'];
 $type = $_POST ['type'];
 if($type==1){
     $typeArray = array ("JPG", "jpg" );
-
-}else{
+    $dbname="b".$id.".jpg";
+    $filename="b".$id.".jpg";
+}else if($type==2){
     $typeArray = array ("png","PNG");
+    $dbname="m".$id;
+    $filename="m".$id.".png";
+}else if($type==3){
+    $typeArray = array ("png","PNG");
+    $dbname="m".$id."_2";
+    $filename="m".$id."_2.png";
 }
 $file_size = 10485760;
 $isCheckType = true;
-$dbname = $type==1?"b".$id.".jpg":($type==2?"m".$id:"m".$id."_2");
-$filename =$type==1?"b".$id.".jpg":($type==2?"m".$id.".png":"m".$id."_2.png");
+//$dbname = $type==1?"b".$id.".jpg":($type==2?"m".$id:"m".$id."_2");
+//$filename =$type==1?"b".$id.".jpg":($type==2?"m".$id.".png":"m".$id."_2.png");
 //文件大小确认
 $path = FileUtilSave::saveFile ( $_FILES ['files'], $ROOT."images/".$filename, $typeArray, true,true);
 if (is_file ( $path )) {
