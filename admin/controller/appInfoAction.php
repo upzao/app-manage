@@ -31,7 +31,7 @@ class appInfoAction extends ActionClass
     function  addAppInfoPost(){
         $app = $this->app;
         $id = $this->appInfoService->addAppInfo($this->app);
-        header("location:".S_URL."/admincp.php?action=appInfoAction&actionName=updateAppInfo&app[id]=".$id);
+        header("location:".S_URL."/admincp.php?action=appInfoAction&actionName=updateAppInfo&app[id]=".$id['extra']['id']);
     }
 
     function updateAppInfo(){
